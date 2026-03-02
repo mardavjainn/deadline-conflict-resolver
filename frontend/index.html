@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deadline Conflict Resolver</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <h1 class="app-title">
+        <span class="icon">📋</span> Deadline Conflict Resolver
+      </h1>
+      <p class="app-subtitle">AI-driven productivity optimization &amp; scheduling</p>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- ── Task Input Panel ─────────────────────────────── -->
+    <section class="panel" id="task-panel">
+      <h2 class="panel-title">Task Management</h2>
+
+      <form id="task-form" class="task-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-title">Title <span class="req">*</span></label>
+            <input id="task-title" type="text" placeholder="e.g. Write project report" required />
+          </div>
+          <div class="form-group">
+            <label for="task-priority">Priority</label>
+            <select id="task-priority">
+              <option value="1">1 – Low</option>
+              <option value="2">2</option>
+              <option value="3" selected>3 – Medium</option>
+              <option value="4">4</option>
+              <option value="5">5 – High</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-deadline">Deadline <span class="req">*</span></label>
+            <input id="task-deadline" type="datetime-local" required />
+          </div>
+          <div class="form-group">
+            <label for="task-hours">Estimated Hours <span class="req">*</span></label>
+            <input id="task-hours" type="number" min="0.5" step="0.5" placeholder="e.g. 8" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="task-description">Description</label>
+          <textarea id="task-description" rows="2" placeholder="Optional task description"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="add-btn">Add Task</button>
+          <button type="button" class="btn btn-secondary" id="cancel-edit-btn" style="display:none">Cancel Edit</button>
+        </div>
+      </form>
+
+      <div id="task-list-container">
+        <h3 class="list-header">
+          Tasks <span id="task-count" class="badge">0</span>
+          <button class="btn btn-sm btn-danger" id="clear-all-btn" title="Remove all tasks">Clear All</button>
+        </h3>
+        <div id="task-list" class="task-list">
+          <p class="empty-state">No tasks added yet. Use the form above to get started.</p>
+        </div>
+      </div>
+
+      <div class="analyze-bar">
+        <button class="btn btn-analyze" id="analyze-btn" disabled>
+          ⚡ Analyze &amp; Optimize
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Results Panel ────────────────────────────────── -->
+    <section class="panel" id="results-panel" style="display:none">
+      <h2 class="panel-title">Analysis Results</h2>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="conflicts">⚠️ Conflicts</button>
+        <button class="tab-btn" data-tab="workload">📊 Workload</button>
+        <button class="tab-btn" data-tab="risk">🤖 Risk</button>
+        <button class="tab-btn" data-tab="schedule">📅 Schedule</button>
+      </div>
+
+      <!-- Conflicts Tab -->
+      <div class="tab-content active" id="tab-conflicts">
+        <div id="conflicts-summary" class="result-summary"></div>
+        <div id="conflicts-list" class="result-list"></div>
+      </div>
+
+      <!-- Workload Tab -->
+      <div class="tab-content" id="tab-workload">
+        <div id="workload-summary" class="result-summary"></div>
+        <div id="workload-breakdown" class="result-list"></div>
+      </div>
+
+      <!-- Risk Tab -->
+      <div class="tab-content" id="tab-risk">
+        <div id="risk-summary" class="result-summary"></div>
+        <div id="risk-list" class="result-list"></div>
+      </div>
+
+      <!-- Schedule Tab -->
+      <div class="tab-content" id="tab-schedule">
+        <div id="schedule-summary" class="result-summary"></div>
+        <div id="schedule-grid" class="schedule-grid"></div>
+        <div id="unscheduled-list" class="result-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Deadline Conflict Resolver — AI-driven productivity optimization system</p>
+  </footer>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
